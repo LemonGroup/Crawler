@@ -45,4 +45,31 @@ public class Site {
     public void setPages(Set<Page> pages) {
         this.pages = pages;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Site site = (Site) o;
+
+        if (getId() != null ? !getId().equals(site.getId()) : site.getId() != null) return false;
+        return getName() != null ? getName().equals(site.getName()) : site.getName() == null;
+
+    }
+
+    @Override
+    public int hashCode() {
+        int result = getId() != null ? getId().hashCode() : 0;
+        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Site{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
+    }
 }
