@@ -1,8 +1,11 @@
-import java.io.BufferedReader;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.MalformedURLException;
-import java.net.URL;
+import java.util.ArrayList;
+
+
 
 /**
  * Created by Nikolay on 09.11.2016.
@@ -10,35 +13,37 @@ import java.net.URL;
 
 public class Downloader {
 
-    URL url;
+    String url;
 
 /**
-
     public static void main(String[] args) throws IOException {
-        Downloader downloader = new Downloader("https://lenta.ru/");
+        String url = "https://lenta.ru/lib/14160711/";
+
+        Downloader downloader = new Downloader(url);
+
         String html = downloader.download();
         System.out.println(html);
+        ArrayList<String> keywords = new ArrayList<>();
+        keywords.add("Путин");
+
+        RatingCount ratingCount = new RatingCount(keywords, html);
+        ratingCount.calculate();
+        System.out.println(ratingCount.getCount());
 
     }
 
- */
+*/
 
-
-    public Downloader(String address) throws MalformedURLException {
-            this.url = new URL(address);
+    public Downloader(String url) throws MalformedURLException {
+            this.url = url;
     }
 
     public String download () throws IOException {
 
-        BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(url.openConnection().getInputStream(), "UTF-8"));
-        StringBuilder sb = new StringBuilder();
+        Document doc;
+        doc = Jsoup.connect(url).userAgent("Mozilla").get();
+        String text = doc.text().toString();
 
-        while (bufferedReader.ready()) {
-                    sb.append(bufferedReader.readLine()).append("\n");
-                }
-        bufferedReader.close();
-
-        return sb.toString();
+        return text;
         }
     }
-
