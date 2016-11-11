@@ -1,3 +1,5 @@
+package com.slack.geekbrainswork.crawler.util;
+
 import java.util.ArrayList;
 
 /**

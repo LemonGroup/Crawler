@@ -1,3 +1,5 @@
+package com.slack.geekbrainswork.crawler.util;
+
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
