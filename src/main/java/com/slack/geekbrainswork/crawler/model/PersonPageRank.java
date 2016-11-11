@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by Andrey on 09.11.2016.
  */
 @Entity
-@Table(name = "PersonPageRank", uniqueConstraints = {@UniqueConstraint(columnNames = {"personid", "pageid"})})
+@Table(name = "PersonPageRank")
 public class PersonPageRank {
     private Integer rank;
     private Person  person;
@@ -21,6 +21,7 @@ public class PersonPageRank {
         this.rank = rank;
     }
 
+    @Id
     @ManyToOne(targetEntity = Person.class)
     @JoinColumn(name = "personid", nullable = false)
     public Person getPerson() {
@@ -31,6 +32,7 @@ public class PersonPageRank {
         this.person = person;
     }
 
+    @Id
     @ManyToOne(targetEntity = Page.class)
     @JoinColumn(name = "pageid", nullable = false)
     public Page getPage() {
