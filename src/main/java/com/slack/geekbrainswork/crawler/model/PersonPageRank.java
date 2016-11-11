@@ -1,13 +1,15 @@
 package com.slack.geekbrainswork.crawler.model;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by Andrey on 09.11.2016.
  */
 @Entity
 @Table(name = "PersonPageRank")
-public class PersonPageRank {
+public class PersonPageRank implements Serializable {
+    private static final long serialVersionUID = 5660710711407001672L;
     private Integer rank;
     private Person  person;
     private Page    page;

@@ -33,11 +33,11 @@ public class Site {
         return name;
     }
 
-    @OneToMany(mappedBy = "site")
     public void setName(String name) {
         this.name = name;
     }
 
+    @OneToMany(mappedBy = "site")
     public Set<Page> getPages() {
         return pages;
     }
