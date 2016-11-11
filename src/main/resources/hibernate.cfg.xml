@@ -1,0 +1,30 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+    <property name="connection.url">jdbc:mysql://localhost/glemongro_crawler</property>
+    <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+    <!-- формально учётных данных не должно быть в публичных репах,
+     но т.к. адрес БД мы здесь не светим и к ней есть ограничение доступа,
+     то считаем, что это условно безопасно :) -->
+    <property name="connection.username">lemongro_crawler</property>
+    <property name="connection.password">^o%T1To}b]</property>
+    <property name="dialect">org.hibernate.dialect.MySQL57InnoDBDialect</property>
+    <!-- DB schema will be updated if needed -->
+    <property name="hbm2ddl.auto">update</property>
+    <property name="hibernate.connection.autocommit">false</property>
+    <property name="hibernate.jdbc.batch_size">25</property>
+    <property name="current_session_context_class">thread</property>
+    <property name="hibernate.show_sql">false</property>
+
+    <!-- Mappings -->
+    <mapping class="com.slack.geekbrainswork.crawler.model.Keyword" />
+    <mapping class="com.slack.geekbrainswork.crawler.model.Page" />
+    <mapping class="com.slack.geekbrainswork.crawler.model.Person" />
+    <mapping class="com.slack.geekbrainswork.crawler.model.PersonPageRank" />
+    <mapping class="com.slack.geekbrainswork.crawler.model.Site" />
+
+  </session-factory>
+</hibernate-configuration>
