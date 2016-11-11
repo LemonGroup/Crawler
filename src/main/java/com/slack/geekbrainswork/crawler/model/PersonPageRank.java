@@ -1,7 +1,6 @@
 package com.slack.geekbrainswork.crawler.model;
 
 import javax.persistence.*;
-import java.io.Serializable;
 
 /**
  * Created by Andrey on 09.11.2016.
@@ -9,7 +8,7 @@ import java.io.Serializable;
 @Entity
 @Table(name = "PersonPageRank")
 @IdClass(PersonPageRankPK.class)
-public class PersonPageRank {
+public class PersonPageRank implements GeekbrainsDBObject {
     private Integer rank;
     private Person  person;
     private Page    page;

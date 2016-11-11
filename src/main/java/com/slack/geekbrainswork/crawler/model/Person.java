@@ -11,7 +11,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "Persons", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})})
-public class Person {
+public class Person implements GeekbrainsDBObject {
     private Integer             id;
     private String              name;
     private Set<Keyword>        keywords  = new HashSet<Keyword>(0);

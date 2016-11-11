@@ -12,7 +12,7 @@ import java.util.Set;
  */
 @Entity
 @Table(name = "Pages", uniqueConstraints = {@UniqueConstraint(columnNames = {"url", "siteid"})})
-public class Page {
+public class Page implements GeekbrainsDBObject {
     private Integer             id;
     private String              url;
     private Site                site;

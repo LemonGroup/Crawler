@@ -9,7 +9,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "Keywords", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "personid"})})
-public class Keyword {
+public class Keyword implements GeekbrainsDBObject {
     private Integer id;
     private String  name;
     private Person  person;
