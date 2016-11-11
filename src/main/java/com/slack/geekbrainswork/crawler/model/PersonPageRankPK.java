@@ -1,27 +1,17 @@
 package com.slack.geekbrainswork.crawler.model;
 
-import javax.persistence.*;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 /**
- * Created by Andrey on 09.11.2016.
+ * Created by Andrey on 11.11.2016.
  */
-@Entity
-@Table(name = "PersonPageRank")
-@IdClass(PersonPageRankPK.class)
-public class PersonPageRank {
-    private Integer rank;
+public class PersonPageRankPK implements Serializable {
+    private static final long serialVersionUID = 7951247080199704462L;
     private Person  person;
     private Page    page;
-
-    @Column(name = "rank")
-    public Integer getRank() {
-        return rank;
-    }
-
-    public void setRank(Integer rank) {
-        this.rank = rank;
-    }
 
     @Id
     @ManyToOne(targetEntity = Person.class)
@@ -50,9 +40,8 @@ public class PersonPageRank {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        PersonPageRank that = (PersonPageRank) o;
+        PersonPageRankPK that = (PersonPageRankPK) o;
 
-        if (getRank() != null ? !getRank().equals(that.getRank()) : that.getRank() != null) return false;
         if (getPerson() != null ? !getPerson().equals(that.getPerson()) : that.getPerson() != null) return false;
         return getPage() != null ? getPage().equals(that.getPage()) : that.getPage() == null;
 
@@ -60,18 +49,8 @@ public class PersonPageRank {
 
     @Override
     public int hashCode() {
-        int result = getRank() != null ? getRank().hashCode() : 0;
-        result = 31 * result + (getPerson() != null ? getPerson().hashCode() : 0);
+        int result = getPerson() != null ? getPerson().hashCode() : 0;
         result = 31 * result + (getPage() != null ? getPage().hashCode() : 0);
         return result;
-    }
-
-    @Override
-    public String toString() {
-        return "PersonPageRank{" +
-                "rank=" + rank +
-                ", person=" + person +
-                ", page=" + page +
-                '}';
     }
 }
