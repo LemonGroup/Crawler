@@ -22,11 +22,15 @@ public class Rating {
 
     // метод считает количество всех слов из списка на данной странице и передает в переменню count
     public void calculate(){
-        String[] words = text.split("\\s");
+        String[] words = text.split("[\\s|\\p{Punct}]");
+
+        for (String w : words){
+            System.out.println(w);
+        }
 
         for (String k : keywords){
             for (String w : words){
-                if (w.toLowerCase().contains(k.toLowerCase())) {
+                if (w.toLowerCase().equals(k.toLowerCase())) {
                     count++;
                 }
             }
