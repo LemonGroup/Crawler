@@ -6,17 +6,22 @@ import java.util.ArrayList;
  */
 
 public class Rating {
+    // список ключевых слов
     private ArrayList<String> keywords;
+    // текст страницы
     private String text;
+    // количество упоминаний
     private int count;
 
 
+    // конструкто на входе принимеат список ключевых слов и текст страницы
     public Rating(ArrayList<String> keywords, String text) {
         this.keywords = keywords;
         this.text = text;
     }
 
-    public int calculate(){
+    // метод считает количество всех слов из списка на данной странице и передает в переменню count
+    public void calculate(){
         String[] words = text.split("\\s");
 
         for (String k : keywords){
@@ -27,7 +32,7 @@ public class Rating {
             }
         }
 
-        return count;
+
     }
 
     public int getCount() {
