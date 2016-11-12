@@ -1,10 +1,10 @@
 package com.slack.geekbrainswork.crawler.util;
-
 import java.util.ArrayList;
 
 /**
  * Created by Nikolay on 09.11.2016.
  */
+
 public class Rating {
     private ArrayList<String> keywords;
     private String text;

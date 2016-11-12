@@ -5,9 +5,6 @@ import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.net.MalformedURLException;
-import java.util.ArrayList;
-
-
 
 /**
  * Created by Nikolay on 09.11.2016.
@@ -16,7 +13,6 @@ import java.util.ArrayList;
 public class ParserPage {
 
     String url;
-
 
     public ParserPage(String url) throws MalformedURLException {
             this.url = url;
