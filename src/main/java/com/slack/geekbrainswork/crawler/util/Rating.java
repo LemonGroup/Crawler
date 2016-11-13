@@ -1,5 +1,7 @@
 package com.slack.geekbrainswork.crawler.util;
-import java.util.ArrayList;
+import com.slack.geekbrainswork.crawler.model.Keyword;
+
+import java.util.List;
 
 /**
  * Created by Nikolay on 09.11.2016.
@@ -7,7 +9,7 @@ import java.util.ArrayList;
 
 public class Rating {
     // список ключевых слов
-    private ArrayList<String> keywords;
+    private List<Keyword> keywords;
     // текст страницы
     private String text;
     // количество упоминаний
@@ -15,7 +17,7 @@ public class Rating {
 
 
     // конструкто на входе принимеат список ключевых слов и текст страницы
-    public Rating(ArrayList<String> keywords, String text) {
+    public Rating(List<Keyword> keywords, String text) {
         this.keywords = keywords;
         this.text = text;
     }
@@ -24,9 +26,9 @@ public class Rating {
     public void calculate(){
         String[] words = text.split("[\\s|\\p{Punct}]");
 
-        for (String k : keywords){
+        for (Keyword k : keywords){
             for (String w : words){
-                if (w.toLowerCase().equals(k.toLowerCase())) {
+                if (w.toLowerCase().equals(k.getName().toLowerCase())) {
                     count++;
                 }
             }
