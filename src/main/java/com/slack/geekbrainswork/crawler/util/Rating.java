@@ -24,10 +24,6 @@ public class Rating {
     public void calculate(){
         String[] words = text.split("[\\s|\\p{Punct}]");
 
-        for (String w : words){
-            System.out.println(w);
-        }
-
         for (String k : keywords){
             for (String w : words){
                 if (w.toLowerCase().equals(k.toLowerCase())) {
@@ -35,8 +31,6 @@ public class Rating {
                 }
             }
         }
-
-
     }
 
     public int getCount() {
