@@ -16,5 +16,5 @@ public interface CrawlerDAO<T> {
     void delete(T object)                             throws HibernateException;
     void delete(List<T> objects)                      throws HibernateException;
     T getById(Serializable id)                        throws HibernateException;
-    List<T> get(HibernateSpecification specification) throws HibernateException;
+    List<T> get(HibernateSpecification<T> specification) throws HibernateException;
 }

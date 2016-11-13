@@ -91,7 +91,7 @@ public class CrawlerDAOImpl<T> implements CrawlerDAO<T> {
     }
 
     @Override
-    public List<T> get(HibernateSpecification specification) throws HibernateException {
+    public List<T> get(HibernateSpecification<T> specification) throws HibernateException {
         List<T> objects = new ArrayList<T>();
 
         Session session = SFactory.get().getCurrentSession();

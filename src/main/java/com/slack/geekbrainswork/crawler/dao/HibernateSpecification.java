@@ -5,6 +5,6 @@ import org.hibernate.criterion.Criterion;
 /**
  * Created by Andrey on 11.11.2016.
  */
-public interface HibernateSpecification {
+public interface HibernateSpecification<T> {
     Criterion getCriteria();
 }
