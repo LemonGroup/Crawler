@@ -20,6 +20,16 @@ public class Page implements GeekbrainsDBObject {
     private Calendar            lastScanDate;
     private Set<PersonPageRank> pageRanks = new HashSet<PersonPageRank>(0);
 
+    public Page() {
+    }
+
+    public Page(String url, Site site, Calendar foundDateTime, Calendar lastScanDate) {
+        this.url = url;
+        this.site = site;
+        this.foundDateTime = foundDateTime;
+        this.lastScanDate = lastScanDate;
+    }
+
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
