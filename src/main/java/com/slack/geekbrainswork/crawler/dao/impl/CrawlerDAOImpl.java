@@ -6,6 +6,7 @@ import com.slack.geekbrainswork.crawler.util.SFactory;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
+import org.hibernate.criterion.Criterion;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -90,13 +91,20 @@ public class CrawlerDAOImpl<T> implements CrawlerDAO<T> {
         return object;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<T> get(HibernateSpecification<T> specification) throws HibernateException {
         List<T> objects = new ArrayList<T>();
 
         Session session = SFactory.get().getCurrentSession();
         Transaction transaction = session.beginTransaction();
-        objects.addAll(session.createCriteria(clazz).add(specification.getCriteria()).list());
+        Criterion selectCriteria = specification.getCriteria();
+        if (selectCriteria != null) {
+            objects.addAll(session.createCriteria(clazz).add(specification.getCriteria()).list());
+        }
+        else {
+            objects.addAll(session.createCriteria(clazz).list());
+        }
         transaction.commit();
         return objects;
     }
