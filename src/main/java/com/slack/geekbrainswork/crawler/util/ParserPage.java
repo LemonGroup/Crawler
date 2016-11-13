@@ -4,37 +4,26 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 
 /**
  * Created by Nikolay on 09.11.2016.
  */
 
 public class ParserPage {
-    // адрес страницы
-    String url;
-    // текст на странице
-    String text;
 
-    // конструктор на вход принимает параметр url - старницы
-    public ParserPage(String url) throws MalformedURLException {
-            this.url = url;
-            this.text = "";
-    }
-
-
-    // метод получает текст страницы c адресом url и сохранеят в перемнную text объекта класса ParserPage
-    public void getTextFromPage () throws IOException {
+    /**
+     * метод получает текст страницы c адресом url и сохранеят в перемнную text объекта класса ParserPage
+     * @param url адрес страницы
+     * @return текст на странице
+     * @throws IOException
+     */
+    public static String getTextFromPage (String url) throws IOException {
 
         Document doc;
         // получаем содержиое страницы с адресом url и передаем переменной doc
         doc = Jsoup.connect(url).userAgent("Mozilla").get();
-        // из переменной doc из влекаем текст в переменную text
-        text = doc.text().toString();
+        // из переменной doc из влекаем текст и возвращаем его как результат
+        return doc.text().toString();
 
         }
-
-    public String getText() {
-        return text;
-    }
 }

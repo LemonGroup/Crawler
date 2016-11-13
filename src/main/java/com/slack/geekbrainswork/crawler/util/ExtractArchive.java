@@ -30,7 +30,7 @@ public class ExtractArchive {
         bis.close();
     }
 
-    public void extract(String archiveName, String destinationName) throws IOException {
+    public static void extract(String archiveName, String destinationName) throws IOException {
         File archive = new File(archiveName);
         File destination = new File(destinationName);
 

@@ -9,6 +9,7 @@ import org.xml.sax.SAXException;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.List;
 
 
 /**
@@ -16,14 +17,17 @@ import java.util.ArrayList;
  */
 
 public class ParserSiteMap {
-
-    // список ссылок из sitemap
-    ArrayList<String> links;
-
-    // метод получает список ссылок из файла sitemap.xml и передает в переменную links
-    public void getLinksFromFile (String fileName) throws IOException, SAXException, ParserConfigurationException {
+    /**
+     * метод получает список ссылок из файла sitemap.xml и возвращает его в качестве результата
+     * @param fileName путь к файлу sitemap.xml
+     * @return список ссылок из sitemap
+     * @throws IOException
+     * @throws SAXException
+     * @throws ParserConfigurationException
+     */
+    public static List<String> getLinksFromFile (String fileName) throws IOException, SAXException, ParserConfigurationException {
         File sitemap = new File(fileName);
-        links = new ArrayList<>();
+        List<String> links = new ArrayList<>();
         Document doc;
         doc = Jsoup.parse(sitemap, "UTF-8");
 
@@ -33,12 +37,18 @@ public class ParserSiteMap {
             links.add(element.text());
         }
 
+        return links;
     }
 
-    // метод получает список ссылок из url sitemap.xml и передает в переменную links
-    public void getLinksFromUrl (String url) throws IOException {
+    /**
+     * метод получает список ссылок из url sitemap.xml и возвращает его в качестве результата
+     * @param url адрес sitemap.xml
+     * @return список ссылок из sitemap
+     * @throws IOException
+     */
+    public static List<String> getLinksFromUrl (String url) throws IOException {
 
-        links = new ArrayList<>();
+        List<String> links = new ArrayList<>();
         Document doc;
         doc = Jsoup.connect(url).userAgent("Mozilla").get();
 
@@ -48,10 +58,6 @@ public class ParserSiteMap {
             links.add(element.text());
         }
 
-    }
-
-
-    public ArrayList<String> getLinks() {
         return links;
     }
 }
