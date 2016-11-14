@@ -17,6 +17,7 @@
     <property name="hibernate.connection.autocommit">false</property>
     <property name="hibernate.jdbc.batch_size">25</property>
     <property name="current_session_context_class">thread</property>
+    <property name="hibernate.enable_lazy_load_no_trans">true</property>
     <property name="hibernate.show_sql">false</property>
 
     <property name="hibernate.connection.CharSet">utf8</property>
