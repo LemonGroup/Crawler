@@ -61,8 +61,8 @@ public class Page implements GeekbrainsDBObject {
         this.site = site;
     }
 
-    @Column(name = "founddatetime")
-    @Temporal(TemporalType.DATE)
+    @Column(name = "founddatetime", columnDefinition="DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getFoundDateTime() {
         return foundDateTime;
     }
@@ -71,8 +71,8 @@ public class Page implements GeekbrainsDBObject {
         this.foundDateTime = foundDateTime;
     }
 
-    @Column(name = "lastscandate")
-    @Temporal(TemporalType.DATE)
+    @Column(name = "lastscandate", columnDefinition="DATETIME")
+    @Temporal(TemporalType.TIMESTAMP)
     public Calendar getLastScanDate() {
         return lastScanDate;
     }
