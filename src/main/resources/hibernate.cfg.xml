@@ -4,7 +4,7 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="connection.url">jdbc:mysql://localhost/glemongro_crawler</property>
+    <property name="connection.url">jdbc:mysql://localhost/lemongro_crawler</property>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
     <!-- формально учётных данных не должно быть в публичных репах,
      но т.к. адрес БД мы здесь не светим и к ней есть ограничение доступа,
@@ -18,6 +18,10 @@
     <property name="hibernate.jdbc.batch_size">25</property>
     <property name="current_session_context_class">thread</property>
     <property name="hibernate.show_sql">false</property>
+
+    <property name="hibernate.connection.CharSet">utf8</property>
+    <property name="hibernate.connection.characterEncoding">utf8</property>
+    <property name="hibernate.connection.useUnicode">true</property>
 
     <!-- Mappings -->
     <mapping class="com.slack.geekbrainswork.crawler.model.Keyword" />
