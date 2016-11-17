@@ -4,13 +4,13 @@
     "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
 <hibernate-configuration>
   <session-factory>
-    <property name="connection.url">jdbc:mysql://localhost/lemongro_crawler</property>
+    <property name="connection.url">jdbc:mysql://sql6.freemysqlhosting.net:3306/sql6144944</property>
     <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
     <!-- формально учётных данных не должно быть в публичных репах,
      но т.к. адрес БД мы здесь не светим и к ней есть ограничение доступа,
      то считаем, что это условно безопасно :) -->
-    <property name="connection.username">lemongro_crawler</property>
-    <property name="connection.password">^o%T1To}b]</property>
+    <property name="connection.username">sql6144944</property>
+    <property name="connection.password">7nLFWmnLWk</property>
     <property name="dialect">org.hibernate.dialect.MySQL57InnoDBDialect</property>
     <!-- DB schema will be updated if needed -->
     <property name="hbm2ddl.auto">validate</property>
