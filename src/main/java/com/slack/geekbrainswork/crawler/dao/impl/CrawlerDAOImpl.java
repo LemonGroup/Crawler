@@ -76,7 +76,7 @@ public class CrawlerDAOImpl<T> implements CrawlerDAO<T> {
         int batchSize = SFactory.get().getSessionFactoryOptions().getJdbcBatchSize();
         for (T object : objects) {
             i++;
-            session.saveOrUpdate(object);
+            session.merge(object);
             if (i % batchSize == 0) {
                 session.flush();
                 session.clear();
