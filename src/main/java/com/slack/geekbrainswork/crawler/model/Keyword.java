@@ -52,7 +52,6 @@ public class Keyword implements GeekbrainsDBObject {
 
         Keyword keyword = (Keyword) o;
 
-        if (getId() != null ? !getId().equals(keyword.getId()) : keyword.getId() != null) return false;
         if (getName() != null ? !getName().equals(keyword.getName()) : keyword.getName() != null) return false;
         return getPerson() != null ? getPerson().equals(keyword.getPerson()) : keyword.getPerson() == null;
 
@@ -60,8 +59,7 @@ public class Keyword implements GeekbrainsDBObject {
 
     @Override
     public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
+        int result = getName() != null ? getName().hashCode() : 0;
         result = 31 * result + (getPerson() != null ? getPerson().hashCode() : 0);
         return result;
     }

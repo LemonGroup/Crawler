@@ -63,16 +63,13 @@ public class Person implements GeekbrainsDBObject {
 
         Person person = (Person) o;
 
-        if (getId() != null ? !getId().equals(person.getId()) : person.getId() != null) return false;
         return getName() != null ? getName().equals(person.getName()) : person.getName() == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
-        return result;
+        return getName() != null ? getName().hashCode() : 0;
     }
 
     @Override

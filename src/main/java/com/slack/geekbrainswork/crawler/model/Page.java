@@ -97,7 +97,6 @@ public class Page implements GeekbrainsDBObject {
 
         Page page = (Page) o;
 
-        if (getId() != null ? !getId().equals(page.getId()) : page.getId() != null) return false;
         if (getUrl() != null ? !getUrl().equals(page.getUrl()) : page.getUrl() != null) return false;
         return getSite() != null ? getSite().equals(page.getSite()) : page.getSite() == null;
 
@@ -105,8 +104,7 @@ public class Page implements GeekbrainsDBObject {
 
     @Override
     public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getUrl() != null ? getUrl().hashCode() : 0);
+        int result = getUrl() != null ? getUrl().hashCode() : 0;
         result = 31 * result + (getSite() != null ? getSite().hashCode() : 0);
         return result;
     }
