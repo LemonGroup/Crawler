@@ -53,16 +53,13 @@ public class Site implements GeekbrainsDBObject {
 
         Site site = (Site) o;
 
-        if (getId() != null ? !getId().equals(site.getId()) : site.getId() != null) return false;
         return getName() != null ? getName().equals(site.getName()) : site.getName() == null;
 
     }
 
     @Override
     public int hashCode() {
-        int result = getId() != null ? getId().hashCode() : 0;
-        result = 31 * result + (getName() != null ? getName().hashCode() : 0);
-        return result;
+        return getName() != null ? getName().hashCode() : 0;
     }
 
     @Override

@@ -51,7 +51,6 @@ public class PersonPageRank implements GeekbrainsDBObject {
 
         PersonPageRank that = (PersonPageRank) o;
 
-        if (getRank() != null ? !getRank().equals(that.getRank()) : that.getRank() != null) return false;
         if (getPerson() != null ? !getPerson().equals(that.getPerson()) : that.getPerson() != null) return false;
         return getPage() != null ? getPage().equals(that.getPage()) : that.getPage() == null;
 
@@ -59,8 +58,7 @@ public class PersonPageRank implements GeekbrainsDBObject {
 
     @Override
     public int hashCode() {
-        int result = getRank() != null ? getRank().hashCode() : 0;
-        result = 31 * result + (getPerson() != null ? getPerson().hashCode() : 0);
+        int result = getPerson() != null ? getPerson().hashCode() : 0;
         result = 31 * result + (getPage() != null ? getPage().hashCode() : 0);
         return result;
     }

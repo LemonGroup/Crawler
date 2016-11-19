@@ -13,8 +13,10 @@ public interface CrawlerDAO<T> {
     void add(List<T> objects)                            throws HibernateException;
     void update(T object)                                throws HibernateException;
     void update(List<T> objects)                         throws HibernateException;
-    void addOrUpdate(T object)                           throws HibernateException;
-    void addOrUpdate(List<T> objects)                    throws HibernateException;
+    void saveOrUpdate(T object)                          throws HibernateException;
+    void saveOrUpdate(List<T> objects)                   throws HibernateException;
+    void merge(T object)                                 throws HibernateException;
+    void merge(List<T> objects)                          throws HibernateException;
     void delete(T object)                                throws HibernateException;
     void delete(List<T> objects)                         throws HibernateException;
     T getById(Serializable id)                           throws HibernateException;
