@@ -6,7 +6,9 @@ import com.slack.geekbrainswork.crawler.model.PersonPageRank;
 
 import java.io.IOException;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -48,41 +50,53 @@ public class Rating {
 
     /**
      * Получает кол-во упоминаний личности на странице
-     * @param person {@link Person} личность
+     * @param persons {@link Person} список личностей
      * @param page {@link Page} страница
      * @return {@link PersonPageRank}
      * @throws IOException
      */
-    public static PersonPageRank getPersonPageRank(Person person, Page page) throws IOException {
-        //создаём объект рейтинга и задаём в нём ссылки на страницу и личность
-        PersonPageRank ppr = new PersonPageRank();
-        ppr.setPerson(person);
-        ppr.setPage(page);
+    public static Map<Person, PersonPageRank> getPersonPageRank(List<Person> persons, Page page) throws IOException {
+        /**
+         * Для того, чтобы не загружать содержимое страницы каждый раз для каждой из личностей,
+         * этот метод принимает в качестве аргумент список личностей, а возвращает карту личность-рейтинг.
+         * Т.о. страница загружается один раз и в ней выполняется поиск упоминания каждой личности.
+         */
+        final Map<Person, PersonPageRank> personToRankMap = new HashMap<>();
 
-        int pageMentionCounter = 0; //счётчик упоминаний
         String pageText = ParserPage.getTextFromPage(page).toLowerCase(); //получаем текст страницы в нижнем регистре (для удобства)
-        //для каждого ключевого слова связанного с личностью
-        for (Keyword k : person.getKeywords()) {
-            /**
-             * Создаём шаблон регулярного выражения для поиска упоминаний.
-             * Шаблон означает: искать только слово целиком.
-             * Ключевое слово в шаблон передаётся в нижнем регистре.
-             */
-            Pattern matchPattern = Pattern.compile("\\b(" + k.getName().toLowerCase() + ")\\b");
-            // Создаём matcher, который будет выполнять поиск совпадений с шаблоном
-            Matcher matcher = matchPattern.matcher(pageText);
-            //до тех пор, пока в строке есть совпадения
-            while (matcher.find()) {
-                //увеличиваем значение счётчика
-                pageMentionCounter++;
+
+        for(Person person : persons) {
+            //создаём объект рейтинга и задаём в нём ссылки на страницу и личность
+            PersonPageRank ppr = new PersonPageRank();
+            ppr.setPerson(person);
+            ppr.setPage(page);
+
+            int pageMentionCounter = 0; //счётчик упоминаний
+            //для каждого ключевого слова связанного с личностью
+            for (Keyword k : person.getKeywords()) {
+                /**
+                 * Создаём шаблон регулярного выражения для поиска упоминаний.
+                 * Шаблон означает: искать только слово целиком.
+                 * Ключевое слово в шаблон передаётся в нижнем регистре.
+                 */
+                Pattern matchPattern = Pattern.compile("\\b(" + k.getName().toLowerCase() + ")\\b");
+                // Создаём matcher, который будет выполнять поиск совпадений с шаблоном
+                Matcher matcher = matchPattern.matcher(pageText);
+                //до тех пор, пока в строке есть совпадения
+                while (matcher.find()) {
+                    //увеличиваем значение счётчика
+                    pageMentionCounter++;
+                }
             }
+            //сохраняем полученный результат в объект рейтинга
+            ppr.setRank(pageMentionCounter);
+
+            personToRankMap.put(person, ppr); //складываем результат в карту
         }
-        //сохраняем полученный результат в объект рейтинга
-        ppr.setRank(pageMentionCounter);
 
         //в объекте страницы обновляем дату последнего сканирования
         page.setLastScanDate(Calendar.getInstance());
 
-        return ppr;
+        return personToRankMap;
     }
 }
