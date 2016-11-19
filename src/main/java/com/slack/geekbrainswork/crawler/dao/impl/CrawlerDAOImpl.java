@@ -63,6 +63,28 @@ public class CrawlerDAOImpl<T> implements CrawlerDAO<T> {
         transaction.commit();
     }
 
+    @Override
+    public void addOrUpdate(T object) throws HibernateException {
+        addOrUpdate(Arrays.asList(object));
+    }
+
+    @Override
+    public void addOrUpdate(List<T> objects) throws HibernateException {
+        Session session = SFactory.get().getCurrentSession();
+        Transaction transaction = session.beginTransaction();
+        int i = 0;
+        int batchSize = SFactory.get().getSessionFactoryOptions().getJdbcBatchSize();
+        for (T object : objects) {
+            i++;
+            session.saveOrUpdate(object);
+            if (i % batchSize == 0) {
+                session.flush();
+                session.clear();
+            }
+        }
+        transaction.commit();
+    }
+
     public void delete(T object) throws HibernateException {
         delete(Arrays.asList(object));
     }
