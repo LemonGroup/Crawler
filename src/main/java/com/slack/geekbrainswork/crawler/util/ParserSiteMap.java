@@ -73,17 +73,12 @@ public class ParserSiteMap {
      * @throws IOException
      */
     public static @Nonnull List<String> getSitemapUrlFromRobots(@Nonnull String robotsUrl) throws IOException {
-        if (robotsUrl != null) {
-            //получаем содержимое по ссылке robotsUrl и разбиваем его на массив по строкам
-            return Arrays.stream(Jsoup.connect(robotsUrl).execute().body().split("\n"))
-                    .filter(str -> str.matches("^Sitemap:.*")) //из полученного массива получчаем все строки, начинающиеся на Sitemap:
-                    .map(str -> str.replaceAll("^Sitemap:[ ]*","")) //во всех полученных строках заменяем "Sitemap: " на "", т.е. удаляем эту часть строки
-                    .distinct() //оставляем только уникальные ссылки
-                    .collect(Collectors.toList());
-        }
-        else {
-            return null;
-        }
+        //получаем содержимое по ссылке robotsUrl и разбиваем его на массив по строкам
+        return Arrays.stream(Jsoup.connect(robotsUrl).execute().body().split("\n"))
+                .filter(str -> str.matches("^Sitemap:.*")) //из полученного массива получчаем все строки, начинающиеся на Sitemap:
+                .map(str -> str.replaceAll("^Sitemap:[ ]*","")) //во всех полученных строках заменяем "Sitemap: " на "", т.е. удаляем эту часть строки
+                .distinct() //оставляем только уникальные ссылки
+                .collect(Collectors.toList());
     }
 }
 
