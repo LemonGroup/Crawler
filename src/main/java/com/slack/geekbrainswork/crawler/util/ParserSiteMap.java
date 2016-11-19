@@ -170,10 +170,12 @@ public class ParserSiteMap {
          */
         Map<String, Page> urlToPageMap = site.getPages().stream().collect(Collectors.toMap(Page::getUrl, page -> page));
 
+        //перебираем ссылки на sitemap'ы из robots.txt
         for (String sitemapUrl : sitemapUrls) {
             getPagesFromUrl(urlToPageMap, sitemapUrl, site);
         }
 
+        //добавляем все полученные страницы из карты urlToPageMap в список pages
         pages.addAll(urlToPageMap.values());
 
         return pages;
