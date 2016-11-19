@@ -13,7 +13,6 @@ import javax.annotation.Nullable;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.util.*;
-import java.util.concurrent.ConcurrentHashMap;
 import java.util.stream.Collectors;
 
 
@@ -22,7 +21,9 @@ import java.util.stream.Collectors;
  */
 
 public class ParserSiteMap {
-    private static final int JSOUP_READ_TIMEOUT = 0; //значение задаётся в МИЛИСЕКУНДАХ, 0 - значит нет таймаута
+    private static final int     JSOUP_READ_TIMEOUT = 0; //значение задаётся в МИЛИСЕКУНДАХ, 0 - значит нет таймаута
+    private static final String  JSOUP_USER_AGENT   = "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:50.0) Gecko/20100101 Firefox/50.0";
+    private static final boolean JSOUP_FOLLOW_REDIRECTIONS = true;
 
     /**
      * метод получает список ссылок из файла sitemap.xml и возвращает его в качестве результата
@@ -57,7 +58,7 @@ public class ParserSiteMap {
 
         List<String> links = new ArrayList<>();
         Document doc;
-        doc = Jsoup.connect(url).timeout(JSOUP_READ_TIMEOUT).userAgent("Mozilla").get();
+        doc = Jsoup.connect(url).userAgent(JSOUP_USER_AGENT).followRedirects(JSOUP_FOLLOW_REDIRECTIONS).timeout(JSOUP_READ_TIMEOUT).get();
 
         Elements elements = doc.select("loc");
 
@@ -78,7 +79,7 @@ public class ParserSiteMap {
     public static void getPagesFromUrl (Map<String, Page> pages, String url, Site site) throws IOException {
         Calendar curDate = Calendar.getInstance(); //текущая дата, которая будет использоваться как дата обнаружения страницы
 
-        Document doc = Jsoup.connect(url).timeout(JSOUP_READ_TIMEOUT).get(); //получаем содержимое sitemap.xml в виде Document Object Model (DOM)
+        Document doc = Jsoup.connect(url).userAgent(JSOUP_USER_AGENT).followRedirects(JSOUP_FOLLOW_REDIRECTIONS).timeout(JSOUP_READ_TIMEOUT).get(); //получаем содержимое sitemap.xml в виде Document Object Model (DOM)
 
         Elements sitemapLocs = doc.select("sitemap").select("loc"); //получаем список loc для всех элементов с тегом sitemap
         Elements urlLocs     = doc.select("url").select("loc"); //получаем список loc для всех элементов с тегом url
@@ -107,7 +108,10 @@ public class ParserSiteMap {
              * Мы используем именно этот метод потому что он потенциально потокобезопасен. Т.е. если мы в переменной pages
              * будем использовать ConcurrentHashMap вместо простого HashMap, то следующий код менять не придётся.
              */
-            pages.putIfAbsent(pageUrl, new Page(pageUrl, site, curDate, null));
+            //проверяем, что ссылка - не на xml
+            if (!pageUrl.matches(".*\\.xml$")) {
+                pages.putIfAbsent(pageUrl, new Page(pageUrl, site, curDate, null));
+            }
         }
     }
 
@@ -120,7 +124,7 @@ public class ParserSiteMap {
      */
     public static @Nonnull List<String> getSitemapUrlFromRobots(@Nonnull String robotsUrl) throws IOException {
         //получаем содержимое по ссылке robotsUrl и разбиваем его на массив по строкам
-        return Arrays.stream(Jsoup.connect(robotsUrl).timeout(JSOUP_READ_TIMEOUT).execute().body().split("\n"))
+        return Arrays.stream(Jsoup.connect(robotsUrl).userAgent(JSOUP_USER_AGENT).followRedirects(JSOUP_FOLLOW_REDIRECTIONS).timeout(JSOUP_READ_TIMEOUT).execute().body().split("\n"))
                 .filter(str -> str.matches("^Sitemap:.*")) //из полученного массива получчаем все строки, начинающиеся на Sitemap:
                 .map(str -> str.replaceAll("^Sitemap:[ ]*","")) //во всех полученных строках заменяем "Sitemap: " на "", т.е. удаляем эту часть строки
                 .distinct() //оставляем только уникальные ссылки
