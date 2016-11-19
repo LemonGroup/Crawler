@@ -5,6 +5,7 @@ import com.slack.geekbrainswork.crawler.model.Person;
 import com.slack.geekbrainswork.crawler.model.PersonPageRank;
 
 import java.io.IOException;
+import java.util.Calendar;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -78,6 +79,9 @@ public class Rating {
         }
         //сохраняем полученный результат в объект рейтинга
         ppr.setRank(pageMentionCounter);
+
+        //в объекте страницы обновляем дату последнего сканирования
+        page.setLastScanDate(Calendar.getInstance());
 
         return ppr;
     }
