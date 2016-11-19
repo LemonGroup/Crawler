@@ -6,10 +6,14 @@ import org.jsoup.select.Elements;
 import org.xml.sax.SAXException;
 
 
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 /**
@@ -59,6 +63,27 @@ public class ParserSiteMap {
         }
 
         return links;
+    }
+
+    /**
+     * Метод получает ссылку на sitemap.xml из robots.txt .<br>
+     * Возвращает null, если ссылка на sitemap.xml не найдена.
+     * @param robotsUrl ссылка на robots.txt
+     * @return ссылка на sitemap.xml
+     * @throws IOException
+     */
+    public static @Nullable List<String> getSitemapUrlFromRobots(@Nonnull String robotsUrl) throws IOException {
+        if (robotsUrl != null) {
+            //получаем содержимое по ссылке robotsUrl и разбиваем его на массив по строкам
+            return Arrays.stream(Jsoup.connect(robotsUrl).execute().body().split("\n"))
+                    .filter(str -> str.matches("^Sitemap:.*")) //из полученного массива получчаем все строки, начинающиеся на Sitemap:
+                    .map(str -> str.replaceAll("^Sitemap:[ ]*","")) //во всех полученных строках заменяем "Sitemap: " на "", т.е. удаляем эту часть строки
+                    .distinct() //оставляем только уникальные ссылки
+                    .collect(Collectors.toList());
+        }
+        else {
+            return null;
+        }
     }
 }
 
