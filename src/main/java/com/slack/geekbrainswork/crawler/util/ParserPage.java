@@ -11,6 +11,7 @@ import java.io.IOException;
  */
 
 public class ParserPage {
+    private static final int JSOUP_READ_TIMEOUT = 0; //значение задаётся в МИЛИСЕКУНДАХ, 0 - значит нет таймаута
 
     /**
      * метод получает текст страницы c адресом url и сохранеят в перемнную text объекта класса ParserPage
@@ -22,7 +23,7 @@ public class ParserPage {
 
         Document doc;
         // получаем содержиое страницы с адресом url и передаем переменной doc
-        doc = Jsoup.connect(url).userAgent("Mozilla").get();
+        doc = Jsoup.connect(url).timeout(JSOUP_READ_TIMEOUT).userAgent("Mozilla").get();
         // из переменной doc из влекаем текст и возвращаем его как результат
         return doc.text().toString();
 
@@ -36,7 +37,7 @@ public class ParserPage {
      */
     public static String getTextFromPage (Page page) throws IOException {
         // получаем содержиое страницы с адресом url и передаем переменной doc
-        Document doc = Jsoup.connect(page.getUrl()).userAgent("Mozilla").get();
+        Document doc = Jsoup.connect(page.getUrl()).timeout(JSOUP_READ_TIMEOUT).userAgent("Mozilla").get();
         // из переменной doc из влекаем текст и возвращаем его как результат
         return doc.text();
     }
