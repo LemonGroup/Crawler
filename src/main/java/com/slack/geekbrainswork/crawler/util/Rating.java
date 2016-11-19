@@ -5,10 +5,7 @@ import com.slack.geekbrainswork.crawler.model.Person;
 import com.slack.geekbrainswork.crawler.model.PersonPageRank;
 
 import java.io.IOException;
-import java.util.Calendar;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -55,13 +52,13 @@ public class Rating {
      * @return {@link PersonPageRank}
      * @throws IOException
      */
-    public static Map<Person, PersonPageRank> getPersonPageRank(List<Person> persons, Page page) throws IOException {
+    public static List<PersonPageRank> getPersonPageRank(List<Person> persons, Page page) throws IOException {
         /**
          * Для того, чтобы не загружать содержимое страницы каждый раз для каждой из личностей,
-         * этот метод принимает в качестве аргумент список личностей, а возвращает карту личность-рейтинг.
+         * этот метод принимает в качестве аргумент список личностей, а возвращает список рейтингов для этих личностей.
          * Т.о. страница загружается один раз и в ней выполняется поиск упоминания каждой личности.
          */
-        final Map<Person, PersonPageRank> personToRankMap = new HashMap<>();
+        final List<PersonPageRank> ranks = new ArrayList<>();
 
         String pageText = ParserPage.getTextFromPage(page).toLowerCase(); //получаем текст страницы в нижнем регистре (для удобства)
 
@@ -91,12 +88,12 @@ public class Rating {
             //сохраняем полученный результат в объект рейтинга
             ppr.setRank(pageMentionCounter);
 
-            personToRankMap.put(person, ppr); //складываем результат в карту
+            ranks.add(ppr); //добавляем рейтинг в список
         }
 
         //в объекте страницы обновляем дату последнего сканирования
         page.setLastScanDate(Calendar.getInstance());
 
-        return personToRankMap;
+        return ranks;
     }
 }
