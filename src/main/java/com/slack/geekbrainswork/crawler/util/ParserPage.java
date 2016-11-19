@@ -1,5 +1,6 @@
 package com.slack.geekbrainswork.crawler.util;
 
+import com.slack.geekbrainswork.crawler.model.Page;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
@@ -26,4 +27,17 @@ public class ParserPage {
         return doc.text().toString();
 
         }
+
+    /**
+     * Метод получает текст страницы и возвращает его в качестве результата
+     * @param page страница
+     * @return текст на странице
+     * @throws IOException
+     */
+    public static String getTextFromPage (Page page) throws IOException {
+        // получаем содержиое страницы с адресом url и передаем переменной doc
+        Document doc = Jsoup.connect(page.getUrl()).userAgent("Mozilla").get();
+        // из переменной doc из влекаем текст и возвращаем его как результат
+        return doc.text();
+    }
 }
