@@ -66,13 +66,13 @@ public class ParserSiteMap {
     }
 
     /**
-     * Метод получает ссылку на sitemap.xml из robots.txt .<br>
-     * Возвращает null, если ссылка на sitemap.xml не найдена.
+     * Метод получает список ссылок на sitemap.xml из robots.txt .<br>
+     * Возвращает пустую коллекцию, если ссылок нет
      * @param robotsUrl ссылка на robots.txt
-     * @return ссылка на sitemap.xml
+     * @return ссылки на sitemap.xml
      * @throws IOException
      */
-    public static @Nullable List<String> getSitemapUrlFromRobots(@Nonnull String robotsUrl) throws IOException {
+    public static @Nonnull List<String> getSitemapUrlFromRobots(@Nonnull String robotsUrl) throws IOException {
         if (robotsUrl != null) {
             //получаем содержимое по ссылке robotsUrl и разбиваем его на массив по строкам
             return Arrays.stream(Jsoup.connect(robotsUrl).execute().body().split("\n"))
