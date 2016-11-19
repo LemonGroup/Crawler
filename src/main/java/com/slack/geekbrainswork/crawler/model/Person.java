@@ -38,7 +38,7 @@ public class Person implements GeekbrainsDBObject {
         this.name = name;
     }
 
-    @OneToMany(mappedBy = "person")
+    @OneToMany(mappedBy = "person", fetch = FetchType.EAGER)
     public Set<Keyword> getKeywords() {
         return keywords;
     }
