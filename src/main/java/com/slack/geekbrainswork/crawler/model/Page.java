@@ -99,10 +99,7 @@ public class Page implements GeekbrainsDBObject {
 
         if (getId() != null ? !getId().equals(page.getId()) : page.getId() != null) return false;
         if (getUrl() != null ? !getUrl().equals(page.getUrl()) : page.getUrl() != null) return false;
-        if (getSite() != null ? !getSite().equals(page.getSite()) : page.getSite() != null) return false;
-        if (getFoundDateTime() != null ? !getFoundDateTime().equals(page.getFoundDateTime()) : page.getFoundDateTime() != null)
-            return false;
-        return getLastScanDate() != null ? getLastScanDate().equals(page.getLastScanDate()) : page.getLastScanDate() == null;
+        return getSite() != null ? getSite().equals(page.getSite()) : page.getSite() == null;
 
     }
 
@@ -111,8 +108,6 @@ public class Page implements GeekbrainsDBObject {
         int result = getId() != null ? getId().hashCode() : 0;
         result = 31 * result + (getUrl() != null ? getUrl().hashCode() : 0);
         result = 31 * result + (getSite() != null ? getSite().hashCode() : 0);
-        result = 31 * result + (getFoundDateTime() != null ? getFoundDateTime().hashCode() : 0);
-        result = 31 * result + (getLastScanDate() != null ? getLastScanDate().hashCode() : 0);
         return result;
     }
 
