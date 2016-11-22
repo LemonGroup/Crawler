@@ -68,4 +68,50 @@ public class ParserPage {
             return doc.text();
         }
     }
+
+
+    /**
+     * Метод получает ссылки страницы и возвращает их в качестве результата
+     * @param page страница
+     * @return сслыки на странице
+     * @throws IOException
+     */
+
+
+        public static ArrayList<String> getLinksFromPage(Page page) throws IOException {
+            ArrayList<String> links = null;
+            int retriesCounter = 0; //счётчик повторных попыток
+            Document doc = null; //DOM
+            IOException exception = null; //исключение, возникшее при получении содержимого страницы
+            //пытаемся получить содержимое страницы до тех пор, пока не превысим счётчик повторных попыток или пока не удастся получить содержимое сайта
+            while (retriesCounter < RETRIES_AMOUNT && doc == null) {
+                try {
+                    doc = Jsoup.connect(page.getUrl()).userAgent(JSOUP_USER_AGENT).followRedirects(JSOUP_FOLLOW_REDIRECTIONS).timeout(JSOUP_READ_TIMEOUT).get();
+                } catch (IOException e) {
+                    //сохраняем текущее исключение в переменную exception для того, чтобы кинуть его в случае неудачи по окончании цикла
+                    exception = e;
+                }
+                try {
+                    //спим одну секунду перед следующей попыткой
+                    Thread.sleep(1000);
+                } catch (InterruptedException e) {
+                    break;
+                }
+                retriesCounter++;
+            }
+            if (doc == null) {
+                throw exception;
+            } else {
+
+                Elements elements = doc.select("a");
+                // из переменной doc извлекаем ссылки и возвращаем их как результат
+                for (Element element : elements) {
+                    String link = element.attr("href");
+                    links.add(link);
+                }
+                return links;
+
+            }
+        }
+
 }
