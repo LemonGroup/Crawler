@@ -76,8 +76,6 @@ public class ParserPage {
      * @return сслыки на странице
      * @throws IOException
      */
-
-
         public static ArrayList<String> getLinksFromPage(Page page) throws IOException {
             ArrayList<String> links = null;
             int retriesCounter = 0; //счётчик повторных попыток
@@ -113,5 +111,16 @@ public class ParserPage {
 
             }
         }
+
+    /**
+     * Метод получает получает robots.txt и возвращает список исключений в качестве результата
+     * @param site сайт
+     * @return список исключений
+     * @throws IOException
+     */
+
+    public static ArrayList<String> getRobotsTxtFromSite(Page page) throws IOException {
+        return null;
+    }
 
 }
