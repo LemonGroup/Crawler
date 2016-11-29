@@ -8,7 +8,7 @@ import javax.persistence.*;
  * Created by Andrey on 09.11.2016.
  */
 @Entity
-@Table(name = "Keywords", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "personid"})})
+@Table(name = "keywords", uniqueConstraints = {@UniqueConstraint(columnNames = {"name", "personid"})})
 public class Keyword implements GeekbrainsDBObject {
     private Integer id;
     private String  name;
