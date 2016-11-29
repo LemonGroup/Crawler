@@ -11,7 +11,7 @@ import java.util.Set;
  * Created by Andrey on 09.11.2016.
  */
 @Entity
-@Table(name = "Pages", uniqueConstraints = {@UniqueConstraint(columnNames = {"url", "siteid"})})
+@Table(name = "pages", uniqueConstraints = {@UniqueConstraint(columnNames = {"url", "siteid"})})
 public class Page implements GeekbrainsDBObject {
     private Integer             id;
     private String              url;

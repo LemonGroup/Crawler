@@ -10,7 +10,7 @@ import java.util.Set;
  * Created by Andrey on 09.11.2016.
  */
 @Entity
-@Table(name = "Sites", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})})
+@Table(name = "sites", uniqueConstraints = {@UniqueConstraint(columnNames = {"name"})})
 public class Site implements GeekbrainsDBObject {
     private Integer   id;
     private String    name;
