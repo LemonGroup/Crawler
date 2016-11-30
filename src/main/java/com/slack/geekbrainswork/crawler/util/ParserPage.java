@@ -3,8 +3,11 @@ package com.slack.geekbrainswork.crawler.util;
 import com.slack.geekbrainswork.crawler.model.Page;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Created by Nikolay on 09.11.2016.
