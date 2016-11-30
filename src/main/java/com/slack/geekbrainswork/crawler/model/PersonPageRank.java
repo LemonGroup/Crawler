@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by Andrey on 09.11.2016.
  */
 @Entity
-@Table(name = "personpagerank")
+@Table(name = "person_page_rank")
 @IdClass(PersonPageRankPK.class)
 public class PersonPageRank implements GeekbrainsDBObject {
     private Integer rank;
