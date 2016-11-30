@@ -36,6 +36,7 @@
 
     <root level="error">
         <appender-ref ref="STDOUT" />
+        <appender-ref ref="LogFile" />
     </root>
 
 </configuration>
